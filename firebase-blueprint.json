@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "Property": {
+      "title": "Property",
+      "description": "A real estate property listing",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the property" },
+        "description": { "type": "string", "description": "Detailed description" },
+        "price": { "type": "number", "description": "Price in BRL" },
+        "location": { "type": "string", "description": "City and State" },
+        "image": { "type": "string", "description": "URL to the property image" },
+        "category": { "type": "string", "enum": ["Condomínio", "Casas", "Apartamentos"] },
+        "createdAt": { "type": "number", "description": "Timestamp of creation" }
+      },
+      "required": ["title", "price", "location", "image", "category", "createdAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A chat message for support",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "sender": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "isAdmin": { "type": "boolean" },
+        "roomId": { "type": "string" }
+      },
+      "required": ["text", "sender", "timestamp", "roomId"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile and role",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["email", "name", "role", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/properties/{propertyId}": {
+      "schema": "Property",
+      "description": "Collection of property listings"
+    },
+    "/chats/{chatId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Messages within a specific chat room"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and roles"
+    }
+  }
+}
